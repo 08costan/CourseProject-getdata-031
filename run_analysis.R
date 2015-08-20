@@ -46,12 +46,21 @@ data$activity_label<-activity_labels[data$activity,2]   # Adding explicit activi
 data<-data[order(data$subject,data$activity),]          # Sorting data by subject and activity
 
 ## PART 5 - CREATING A SECOND TIDY DATASET
-## This part uses melt/cast functions from library reshape2 to create a tidy data set containing:
-## the average of each variable, for each subject and each activity.
 
+# Using melt/cast functions from library reshape2 to create a tidy data set containing:
+# the average of each variable, for each subject and each activity.
 library(reshape2)
 dataMelt <- melt(data,id=c("activity_label","subject","activity_label"))
-tidyData <- dcast(dataMelt, subject+activity_label~variable,mean)
+tidyData <- dcast(dataMelt, activity_label+subject~variable,mean)
+
+# Renaming variables (to explicitly mention they are averages)
+newNames <- c("activity_label","subject")
+for (i in colnames(tidyData)[3:68]){newNames<-c(newNames,paste("Average - ",i,sep=""))}
+newNames <- c(newNames,"activity")
+colnames(tidyData) <- newNames
+
+# Just dropping the "activity" variable (we only keep "activity_label")
+tidyData<-cbind(tidyData[,1:68])
 
 ## PART 6 - SAVING THE TIDY DATASET TO A TXT FILE
 

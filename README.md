@@ -16,4 +16,4 @@ The output of this work is a text file 'tidyData.txt' containing the average val
 * This README.md file
 * The code book, describing how my R code is working, how the tidy dataset is organized (variables and rows)
 * run_analysis.R: the R source file
-* tidyData.txt : a copy of the output from the R sourcefile
+* tidyData.txt : a copy of the output from the R source file
